@@ -31,7 +31,7 @@ namespace PGGDemo.ECS
 
             var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-            foreach (var (_, entity) in SystemAPI.Query<LocalTransform>().WithEntityAccess().WithNone<SpawnInfo>())
+            foreach (var (_, entity) in SystemAPI.Query<Static>().WithEntityAccess())
                 ecb.DestroyEntity(entity);
 
             foreach (var info in _listAdapter.SpawnDatas)
@@ -43,7 +43,7 @@ namespace PGGDemo.ECS
                     Rotation = info.Rotation,
                     Scale = info.UniformScale
                 });
-                ecb.AddComponent<StaticOptimizeEntity>(entity);
+                ecb.AddComponent<Static>(entity);
             }
 
             ecb.Playback(EntityManager);
